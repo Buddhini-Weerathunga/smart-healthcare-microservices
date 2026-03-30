@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.log(err));
 
 // Routes
-app.use('/doctors', doctorRoutes);
+app.use('/api/doctors', doctorRoutes);
 
 // Root
 app.get('/', (req, res) => {

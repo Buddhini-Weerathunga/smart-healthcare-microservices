@@ -7,29 +7,28 @@ const app = express();
 
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.json());
 
 // Patient Service
 app.use('/api/patients', createProxyMiddleware({
-  target: 'http://localhost:5001',
+  target: 'http://localhost:5005/api/patients',
   changeOrigin: true
 }));
 
 // Doctor Service
 app.use('/api/doctors', createProxyMiddleware({
-  target: 'http://localhost:5002',
+  target: 'http://localhost:5000/api/doctors',
   changeOrigin: true
 }));
 
 // Appointment Service
 app.use('/api/appointments', createProxyMiddleware({
-  target: 'http://localhost:5003',
+  target: 'http://localhost:5002/api/appointments',
   changeOrigin: true
 }));
 
 // Pharmacy Service
 app.use('/api/medicines', createProxyMiddleware({
-  target: 'http://localhost:5004',
+  target: 'http://localhost:5004/api/medicines',
   changeOrigin: true
 }));
 
@@ -37,7 +36,7 @@ app.get('/', (req, res) => {
   res.send('API Gateway is running');
 });
 
-const PORT = 5000;
+const PORT = 5001;
 app.listen(PORT, () => {
   console.log(`API Gateway running on port ${PORT}`);
 });

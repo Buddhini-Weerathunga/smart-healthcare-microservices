@@ -1,11 +1,11 @@
 {
-  "name": "patient-service",
+  "name": "doctor-service",
   "version": "1.0.0",
-  "description": "Patient microservice",
-  "main": "src/server.js",
+  "description": "Doctor microservice",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",

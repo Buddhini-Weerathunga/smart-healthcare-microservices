@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/patients', patientRoutes);
+app.use('/api/patients', patientRoutes);
 
 // Connect DB and start server
 connectDB();

@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/medicines", medicineRoutes);
 
-const PORT = process.env.PORT || 5003;
+const PORT = process.env.PORT || 5004;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
