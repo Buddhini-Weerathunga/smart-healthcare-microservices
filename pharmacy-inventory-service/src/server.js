@@ -5,23 +5,32 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import medicineRoutes from "./routes/medicineRoutes.js";
 
+// Swagger
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
+
 dotenv.config();
 
-connectDB();
-
 const app = express();
+
+connectDB();
 
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+// Swagger route
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Test route
 app.get("/", (req, res) => {
-  res.status(200).json({
+  res.json({
     success: true,
     message: "Medicine Service Running"
   });
 });
 
+// API routes
 app.use("/api/medicines", medicineRoutes);
 
 const PORT = process.env.PORT || 5004;
