@@ -21,6 +21,12 @@ const patientController = require('../controllers/patient.controller');
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - age
+ *               - gender
+ *               - contact
+ *               - address
  *             properties:
  *               name:
  *                 type: string
@@ -40,6 +46,8 @@ const patientController = require('../controllers/patient.controller');
  *     responses:
  *       201:
  *         description: Patient created successfully
+ *       400:
+ *         description: Invalid input
  */
 router.post('/', patientController.createPatient);
 
@@ -51,7 +59,7 @@ router.post('/', patientController.createPatient);
  *     tags: [Patients]
  *     responses:
  *       200:
- *         description: Success
+ *         description: Patients retrieved successfully
  */
 router.get('/', patientController.getAllPatients);
 
@@ -67,9 +75,12 @@ router.get('/', patientController.getAllPatients);
  *         required: true
  *         schema:
  *           type: string
+ *         example: 6612ab34cd56ef7890123456
  *     responses:
  *       200:
- *         description: Success
+ *         description: Patient retrieved successfully
+ *       404:
+ *         description: Patient not found
  */
 router.get('/:id', patientController.getPatientById);
 
@@ -85,9 +96,34 @@ router.get('/:id', patientController.getPatientById);
  *         required: true
  *         schema:
  *           type: string
+ *         example: 6612ab34cd56ef7890123456
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: John Doe
+ *               age:
+ *                 type: number
+ *                 example: 35
+ *               gender:
+ *                 type: string
+ *                 example: Male
+ *               contact:
+ *                 type: string
+ *                 example: 0771234567
+ *               address:
+ *                 type: string
+ *                 example: Colombo
  *     responses:
  *       200:
- *         description: Updated
+ *         description: Patient updated successfully
+ *       404:
+ *         description: Patient not found
  */
 router.put('/:id', patientController.updatePatient);
 
@@ -103,9 +139,12 @@ router.put('/:id', patientController.updatePatient);
  *         required: true
  *         schema:
  *           type: string
+ *         example: 6612ab34cd56ef7890123456
  *     responses:
  *       200:
- *         description: Deleted
+ *         description: Patient deleted successfully
+ *       404:
+ *         description: Patient not found
  */
 router.delete('/:id', patientController.deletePatient);
 
