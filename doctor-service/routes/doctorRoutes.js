@@ -11,6 +11,8 @@ const doctorController = require('../controllers/doctorController');
 
 /**
  * @swagger
+/**
+ * @swagger
  * /api/doctors:
  *   post:
  *     summary: Create a new doctor
@@ -21,22 +23,20 @@ const doctorController = require('../controllers/doctorController');
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - specialization
+ *               - hospital
  *             properties:
- *               doctorId:
- *                 type: string
- *                 example: D001
  *               name:
  *                 type: string
  *                 example: Dr. Silva
  *               specialization:
  *                 type: string
  *                 example: Cardiology
- *               email:
+ *               hospital:
  *                 type: string
- *                 example: drsilva@gmail.com
- *               phone:
- *                 type: string
- *                 example: 0771234567
+ *                 example: National Hospital
  *               availability:
  *                 type: string
  *                 example: Monday to Friday
