@@ -27,13 +27,10 @@ const router = express.Router();
  *       required:
  *         - medicineCode
  *         - medicineName
- *         - batchNumber
  *         - expiryDate
  *         - buyingPrice
- *         - sellingPrice
  *         - stockQuantity
  *         - reorderLevel
- *         - unit
  *       properties:
  *         _id:
  *           type: string
@@ -43,47 +40,33 @@ const router = express.Router();
  *           example: MED001
  *         medicineName:
  *           type: string
- *           example: Paracetamol 500mg
- *         genericName:
- *           type: string
  *           example: Paracetamol
- *         category:
- *           type: string
- *           example: Painkiller
- *         batchNumber:
- *           type: string
- *           example: BATCH1001
  *         expiryDate:
  *           type: string
- *           format: date
- *           example: 2027-12-31
+ *           format: date-time
+ *           example: 2027-12-31T00:00:00.000Z
  *         buyingPrice:
  *           type: number
- *           example: 10.5
- *         sellingPrice:
- *           type: number
- *           example: 15
+ *           minimum: 0
+ *           example: 10
  *         stockQuantity:
  *           type: number
+ *           minimum: 0
+ *           default: 0
  *           example: 100
  *         reorderLevel:
  *           type: number
+ *           minimum: 0
+ *           default: 10
  *           example: 20
- *         unit:
- *           type: string
- *           example: Tablets
- *         status:
- *           type: string
- *           enum: [Active, Inactive]
- *           example: Active
  *         createdAt:
  *           type: string
  *           format: date-time
- *           example: 2026-03-31T12:00:00.000Z
+ *           example: 2026-04-04T12:00:00.000Z
  *         updatedAt:
  *           type: string
  *           format: date-time
- *           example: 2026-03-31T12:00:00.000Z
+ *           example: 2026-04-04T12:00:00.000Z
  */
 
 /**
@@ -97,7 +80,34 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Medicine'
+ *             type: object
+ *             required:
+ *               - medicineCode
+ *               - medicineName
+ *               - expiryDate
+ *               - buyingPrice
+ *               - stockQuantity
+ *               - reorderLevel
+ *             properties:
+ *               medicineCode:
+ *                 type: string
+ *                 example: MED001
+ *               medicineName:
+ *                 type: string
+ *                 example: Paracetamol
+ *               expiryDate:
+ *                 type: string
+ *                 format: date
+ *                 example: 2027-12-31
+ *               buyingPrice:
+ *                 type: number
+ *                 example: 10
+ *               stockQuantity:
+ *                 type: number
+ *                 example: 100
+ *               reorderLevel:
+ *                 type: number
+ *                 example: 20
  *     responses:
  *       201:
  *         description: Medicine created successfully
@@ -118,26 +128,7 @@ router.post("/", createMedicine);
  */
 router.get("/", getAllMedicines);
 
-/**
- * @swagger
- * /api/medicines/search:
- *   get:
- *     summary: Search medicines
- *     tags: [Medicines]
- *     parameters:
- *       - in: query
- *         name: keyword
- *         required: true
- *         schema:
- *           type: string
- *         description: Search keyword for medicine name, code, category, or generic name
- *     responses:
- *       200:
- *         description: Search results fetched successfully
- *       400:
- *         description: Keyword is required
- */
-router.get("/search", searchMedicines);
+
 
 /**
  * @swagger
@@ -197,16 +188,7 @@ router.get("/:id", getMedicineById);
  *                 example: MED001
  *               medicineName:
  *                 type: string
- *                 example: Paracetamol 650mg
- *               genericName:
- *                 type: string
- *                 example: Paracetamol
- *               category:
- *                 type: string
- *                 example: Painkiller
- *               batchNumber:
- *                 type: string
- *                 example: BATCH1002
+ *                 example: Paracetamol Extra
  *               expiryDate:
  *                 type: string
  *                 format: date
@@ -214,22 +196,12 @@ router.get("/:id", getMedicineById);
  *               buyingPrice:
  *                 type: number
  *                 example: 12
- *               sellingPrice:
- *                 type: number
- *                 example: 18
  *               stockQuantity:
  *                 type: number
  *                 example: 120
  *               reorderLevel:
  *                 type: number
  *                 example: 25
- *               unit:
- *                 type: string
- *                 example: Tablets
- *               status:
- *                 type: string
- *                 enum: [Active, Inactive]
- *                 example: Active
  *     responses:
  *       200:
  *         description: Medicine updated successfully

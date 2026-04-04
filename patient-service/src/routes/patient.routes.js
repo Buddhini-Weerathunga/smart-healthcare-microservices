@@ -11,6 +11,8 @@ const patientController = require('../controllers/patient.controller');
 
 /**
  * @swagger
+ /**
+ * @swagger
  * /api/patients:
  *   post:
  *     summary: Create a new patient
@@ -25,24 +27,21 @@ const patientController = require('../controllers/patient.controller');
  *               - name
  *               - age
  *               - gender
- *               - contact
- *               - address
+ *               - disease
  *             properties:
  *               name:
  *                 type: string
  *                 example: John Doe
  *               age:
- *                 type: number
+ *                 type: integer
  *                 example: 30
  *               gender:
  *                 type: string
+ *                 enum: [Male, Female, Other]
  *                 example: Male
- *               contact:
+ *               disease:
  *                 type: string
- *                 example: 0771234567
- *               address:
- *                 type: string
- *                 example: Colombo
+ *                 example: Dengue
  *     responses:
  *       201:
  *         description: Patient created successfully

@@ -7,28 +7,19 @@ export const createMedicine = async (req, res) => {
     const {
       medicineCode,
       medicineName,
-      genericName,
-      category,
-      batchNumber,
       expiryDate,
       buyingPrice,
-      sellingPrice,
       stockQuantity,
-      reorderLevel,
-      unit,
-      status
+      reorderLevel
     } = req.body;
 
     if (
       !medicineCode ||
       !medicineName ||
-      !batchNumber ||
       !expiryDate ||
       buyingPrice === undefined ||
-      sellingPrice === undefined ||
       stockQuantity === undefined ||
-      reorderLevel === undefined ||
-      !unit
+      reorderLevel === undefined
     ) {
       return res.status(400).json({
         success: false,
@@ -50,16 +41,10 @@ export const createMedicine = async (req, res) => {
     const medicine = await Medicine.create({
       medicineCode: medicineCode.toUpperCase(),
       medicineName,
-      genericName,
-      category,
-      batchNumber,
       expiryDate,
       buyingPrice,
-      sellingPrice,
       stockQuantity,
-      reorderLevel,
-      unit,
-      status
+      reorderLevel
     });
 
     return res.status(201).json({
@@ -167,7 +152,7 @@ export const updateMedicine = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Update failed"
+      message: error.message
     });
   }
 };
@@ -205,13 +190,17 @@ export const searchMedicines = async (req, res) => {
   try {
     const keyword = req.query.keyword?.trim() || "";
 
+    if (!keyword) {
+      return res.status(400).json({
+        success: false,
+        message: "Keyword is required"
+      });
+    }
+
     const medicines = await Medicine.find({
       $or: [
         { medicineName: { $regex: keyword, $options: "i" } },
-        { genericName: { $regex: keyword, $options: "i" } },
-        { medicineCode: { $regex: keyword, $options: "i" } },
-        { category: { $regex: keyword, $options: "i" } },
-        { batchNumber: { $regex: keyword, $options: "i" } }
+        { medicineCode: { $regex: keyword, $options: "i" } }
       ]
     }).sort({ createdAt: -1 });
 
